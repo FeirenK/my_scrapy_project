@@ -8,6 +8,7 @@
 import re
 from scrapy.pipelines.images import ImagesPipeline
 from scrapy import Request
+from scrapy.exceptions import DropItem
 '''
 class MoviePipeline(object):
     def process_item(self, item, spider):
@@ -35,5 +36,15 @@ class ImagesrenamePipeline(ImagesPipeline):
         name = re.sub(r'[？\\*|“<>:/]', '', name)
         # 分文件夹存储的关键：{0}对应着name；{1}对应着image_guid
         filename = u'{0}'.format(name)
-	print(filename)
+    	print(filename)
         return filename
+
+
+
+    def item_completed(self, results, item, info):
+        file_paths = [x['path'] for ok, x in results if ok]
+        if not file_paths:
+            raise DropItem("Item contains no files")
+        item['file_paths'] = file_paths
+        return item
+
