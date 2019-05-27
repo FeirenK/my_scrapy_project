@@ -9,10 +9,19 @@
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
+import random
+from user_agents import agents
+USER_AGENT = random.choice(agents)
+
 BOT_NAME = 'meiju'
 
 SPIDER_MODULES = ['meiju.spiders']
 NEWSPIDER_MODULE = 'meiju.spiders'
+
+DOWNLOAD_DELAY = 1  # 间隔时间
+# LOG_LEVEL = 'INFO'  # 日志级别
+CONCURRENT_REQUESTS = 20  # 默认为16
+
 ITEM_PIPELINES = {
     'meiju.pipelines.ImagesrenamePipeline': 100,
     'scrapy.pipelines.images.ImagesPipeline': 1
@@ -23,6 +32,9 @@ IMAGES_STORE = '/opt/meiju'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
+
+FEED_URI = u'/opt/pornhub.csv'
+FEED_FORMAT = 'CSV'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
