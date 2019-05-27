@@ -26,7 +26,7 @@ ITEM_PIPELINES = {
     'meiju.pipelines.ImagesrenamePipeline': 100,
     'scrapy.pipelines.images.ImagesPipeline': 1
 }
-IMAGES_STORE = '/opt/meiju'
+IMAGES_STORE = '/opt/meiju'   #默认图片名目录是 + "full/图片uuid.后缀"
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'meiju (+http://www.yourdomain.com)'
 
